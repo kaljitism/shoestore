@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoestore/global_variables.dart';
+import 'package:shoestore/product_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,9 +15,6 @@ class _HomePageState extends State<HomePage> {
     'Adidas',
     'Nike',
     'Bata',
-    'HnM',
-    'Woodland',
-    'Gucci'
   ];
   late String selectedFilter;
 
@@ -82,6 +81,19 @@ class _HomePageState extends State<HomePage> {
                         ),
                         const SizedBox(width: 5),
                       ],
+                    );
+                  },
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    final product = products[index];
+                    return ProductCard(
+                      title: product['title'].toString(),
+                      price: product['price'].toString(),
+                      imageUrl: product['imageUrl'].toString(),
                     );
                   },
                 ),
