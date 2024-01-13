@@ -24,6 +24,11 @@ class ShoeStore extends StatelessWidget {
             fontSize: 16,
           ),
         ),
+        textTheme: const TextTheme(
+            titleMedium: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20,
+        )),
       ),
       home: const HomePage(),
     );

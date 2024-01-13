@@ -15,16 +15,28 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Text(
-            title,
-          ),
-          Text(
-            price,
-          ),
-          Image.asset(imageUrl),
-        ],
+      elevation: 5,
+      margin: const EdgeInsets.all(8),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Text(
+              '\$$price',
+            ),
+            Center(
+              child: Image.asset(
+                imageUrl,
+                width: 300,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
