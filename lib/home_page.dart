@@ -1,17 +1,39 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final List<String> filters = const [
+    'All',
+    'Adidas',
+    'Nike',
+    'Bata',
+    'HnM',
+    'Woodland',
+    'Gucci'
+  ];
+  late String selectedFilter;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedFilter = filters[0];
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Row(
+              const Row(
                 children: [
                   Text(
                     'Shoes\nCollection',
@@ -33,9 +55,37 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
+              SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: filters.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              selectedFilter = filters[index];
+                            });
+                          },
+                          child: Chip(
+                            label: Text(filters[index]),
+                            padding: const EdgeInsets.all(8),
+                            backgroundColor: selectedFilter == filters[index]
+                                ? const Color(0xffB76E79).withOpacity(0.4)
+                                : Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 5),
+                      ],
+                    );
+                  },
+                ),
+              )
             ],
           ),
         ),

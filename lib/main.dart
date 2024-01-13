@@ -14,7 +14,7 @@ class ShoeStore extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Shoe Store',
       theme: ThemeData(
-        fontFamily: 'Lato',
+        useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xffB76E79),
         ),
