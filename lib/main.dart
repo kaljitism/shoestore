@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoestore/home_page.dart';
+import 'package:shoestore/global_variables.dart';
+import 'package:shoestore/product_detail_page.dart';
 
 void main() {
   runApp(const ShoeStore());
@@ -25,12 +26,17 @@ class ShoeStore extends StatelessWidget {
           ),
         ),
         textTheme: const TextTheme(
-            titleMedium: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-        )),
+          titleMedium: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+          titleLarge: TextStyle(
+            fontSize: 35,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
-      home: const HomePage(),
+      home: ProductDetailPage(product: products[0]),
     );
   }
 }
