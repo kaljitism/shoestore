@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shoestore/global_variables.dart';
-import 'package:shoestore/product_detail_page.dart';
+import 'package:shoestore/home_page.dart';
 
 void main() {
   runApp(const ShoeStore());
@@ -36,7 +35,7 @@ class ShoeStore extends StatelessWidget {
           ),
         ),
       ),
-      home: ProductDetailPage(product: products[0]),
+      home: const HomePage(),
     );
   }
 }
