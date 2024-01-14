@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoestore/global_variables.dart';
+import 'package:provider/provider.dart';
+import 'package:shoestore/cart_provider.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final Map<String, Object> product;
@@ -58,7 +59,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           Container(
             height: 250,
             decoration: BoxDecoration(
-              color: const Color(0xffB76E79).withOpacity(0.2),
+              color: const Color(0xffB76E79).withOpacity(0.5),
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(25),
               ),
@@ -100,8 +101,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      cart.add(widget.product);
-                      setState(() {});
+                      Provider.of<CartProvider>(context, listen: false)
+                          .addProduct(widget.product);
                     },
                     style: ButtonStyle(
                       minimumSize: MaterialStatePropertyAll(

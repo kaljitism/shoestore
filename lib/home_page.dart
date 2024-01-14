@@ -19,6 +19,8 @@ class _HomePageState extends State<HomePage> {
   ];
   late String selectedFilter;
 
+  int currentPage = 0;
+
   @override
   void initState() {
     super.initState();
@@ -27,87 +29,85 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Shoes\nCollection',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(width: 20),
-                  const Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
-                        hintText: 'Search',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(30),
-                          ),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Shoes\nCollection',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(width: 20),
+                const Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: 'Search',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(30),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: filters.length,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              selectedFilter = filters[index];
-                            });
-                          },
-                          child: Chip(
-                            label: Text(filters[index]),
-                            padding: const EdgeInsets.all(8),
-                            backgroundColor: selectedFilter == filters[index]
-                                ? const Color(0xffB76E79).withOpacity(0.4)
-                                : Colors.white,
-                          ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 100,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: filters.length,
+                itemBuilder: (context, index) {
+                  return Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedFilter = filters[index];
+                          });
+                        },
+                        child: Chip(
+                          label: Text(filters[index]),
+                          padding: const EdgeInsets.all(8),
+                          backgroundColor: selectedFilter == filters[index]
+                              ? const Color(0xffB76E79).withOpacity(0.4)
+                              : Colors.white,
                         ),
-                        const SizedBox(width: 5),
-                      ],
-                    );
-                  },
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    final product = products[index];
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) =>
-                                ProductDetailPage(product: product),
-                          ));
-                        });
-                      },
-                      child: ProductCard(
-                        title: product['title'].toString(),
-                        price: product['price'].toString(),
-                        imageUrl: product['imageUrl'].toString(),
                       ),
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
+                      const SizedBox(width: 5),
+                    ],
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final product = products[index];
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ProductDetailPage(product: product),
+                        ));
+                      });
+                    },
+                    child: ProductCard(
+                      title: product['title'].toString(),
+                      price: product['price'].toString(),
+                      imageUrl: product['imageUrl'].toString(),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
         ),
       ),
     );
