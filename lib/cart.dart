@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoestore/global_variables.dart';
+import 'package:provider/provider.dart';
+import 'package:shoestore/cart_provider.dart';
 import 'package:shoestore/product_detail_page.dart';
 
 class CartPage extends StatefulWidget {
@@ -10,6 +11,14 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+  late List<Map<String, dynamic>> cart =
+      Provider.of<CartProvider>(context).cart;
+
+  onRemove(index) {
+    Provider.of<CartProvider>(context, listen: false)
+        .removeProduct(cart[index]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,9 +55,7 @@ class _CartPageState extends State<CartPage> {
                 Icons.delete,
                 color: Colors.red,
               ),
-              onPressed: () {
-                // Provider.of<CartProvider>(context).removeProduct(product)
-              },
+              onPressed: onRemove(index),
             ),
           );
         },

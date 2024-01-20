@@ -32,5 +32,3 @@ final products = [
     'imageUrl': 'assets/shoes_4.png',
   },
 ];
-
-final cart = [];

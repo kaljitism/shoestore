@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shoestore/cart_provider.dart';
 
 class ProductDetailPage extends StatefulWidget {
-  final Map<String, Object> product;
+  final Map<String, dynamic> product;
   const ProductDetailPage({
     super.key,
     required this.product,
@@ -15,13 +15,31 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   late List sizes;
-  late int selectedFilter;
+  late int selectedSize;
+
+  void onTap() {
+    if (selectedSize != 0) {
+      Provider.of<CartProvider>(context, listen: false).addProduct({
+        'id': widget.product['id'],
+        'title': widget.product['title'],
+        'price': widget.product['price'],
+        'imageUrl': widget.product['imageUrl'],
+        'company': widget.product['company'],
+        'size': selectedSize,
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Product added successfully!')));
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Please select a size!')));
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     sizes = widget.product['sizes'] as List;
-    selectedFilter = sizes[0];
+    selectedSize = 0;
   }
 
   @override
@@ -84,13 +102,13 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                selectedFilter = sizes[index];
+                                selectedSize = sizes[index];
                               });
                             },
                             child: Chip(
                               label: Text(sizes[index].toString()),
                               padding: const EdgeInsets.all(8),
-                              backgroundColor: selectedFilter == sizes[index]
+                              backgroundColor: selectedSize == sizes[index]
                                   ? const Color(0xffB76E79).withOpacity(0.3)
                                   : Colors.white,
                             ),
@@ -100,10 +118,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Provider.of<CartProvider>(context, listen: false)
-                          .addProduct(widget.product);
-                    },
+                    onPressed: onTap,
                     style: ButtonStyle(
                       minimumSize: MaterialStatePropertyAll(
                         Size(MediaQuery.of(context).size.width * 0.85, 50),
